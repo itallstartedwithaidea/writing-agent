@@ -9,9 +9,19 @@
 
 > **The best AI-generated content is the content nobody knows is AI-generated. Not because it tricks anyone — because it's actually good.**
 
-Writing Agent is an open-source CLI tool and multi-agent framework that produces human-quality writing calibrated to pass AI detection systems. Built on reverse-engineered intelligence from 50+ academic papers, commercial detector documentation, and detection benchmarking studies. The core methodology is called **Ghost Protocol** — a 40-point QA system mapped to every known detection vector.
+Writing Agent is an open-source CLI tool and multi-agent framework that produces human-quality writing calibrated to pass AI detection systems. Built on reverse-engineered intelligence from 50+ academic papers, commercial detector documentation, detection benchmarking studies, and **real-world journalism analysis from 40+ articles across Harvard Business Review, ESPN, CNN, Wall Street Journal, Yahoo Finance, Search Engine Land, and Search Engine Journal**.
 
-**This is NOT a humanizer tool.** Humanizers take AI slop and put lipstick on it. Writing Agent generates authentic, human-quality content from the ground up — informed by exactly what detectors look for and why.
+**This is NOT a humanizer tool.** Humanizers take AI slop and put lipstick on it. Writing Agent generates authentic, human-quality content from the ground up — informed by exactly what detectors look for, why, and how real journalists actually write.
+
+### What's New in v2.0 (March 2026)
+
+- **Journalism-Informed Intelligence** — Analyzed 40+ articles from HBR, ESPN, CNN, WSJ, Yahoo, SEL, SEJ to extract authentic human writing patterns
+- **200+ Phrase Blacklist** — Expanded from 100 to 200+ banned AI-sounding phrases including word variants
+- **Post-Processing Engine** — `humanizeContent()` programmatically strips AI conclusion patterns, compound adjectives, hedging pairs, and uniform paragraph structures
+- **8-Pattern AI Detection** — New detection signals: AI-style openings, catchphrases, rhetorical Q+A, tricolons, uniform paragraphs, AI conclusions, em-dash overuse
+- **Strengthened QA Checks** — Paragraph length variance, tricolon detection, rhetorical Q+A detection, AI opening sentence detection
+- **No More Signature Phrases** — Voice profiles no longer have "catchphrases" that get overused
+- **Anti-Pattern Rules** — Explicit rules against essay structure, sports analogy threading, lists of three, thesis-conclusion patterns
 
 ---
 
@@ -37,11 +47,12 @@ Writing Agent is an open-source CLI tool and multi-agent framework that produces
 
 ## How It Works
 
-Ghost Protocol operates on three core laws:
+Ghost Protocol v2 operates on four core laws:
 
-1. **Controlled Chaos** — Every piece of content contains deliberate imperfection. Sentence fragments, unexpected metaphors, paragraphs that run long because the thought demands it.
-2. **Signature Voice** — Every content type gets a specific voice profile. A LinkedIn post sounds different from a Reddit comment sounds different from a white paper.
-3. **Invisible Architecture** — Detection evasion is baked into generation logic, not bolted on after. The writing passes QA checks because of HOW it's constructed.
+1. **Journalism-Informed Patterns** — Every piece follows writing patterns extracted from real HBR, ESPN, CNN, WSJ, and SEL articles. Real writers start with a scene or fact, use metaphors once and abandon them, vary paragraph length wildly, and end on specifics — not summaries.
+2. **No AI Costume** — Instead of adding "personality" through catchphrases, the system removes AI-sounding patterns programmatically. 200+ blacklisted phrases, 8 structural AI-pattern detectors, and a post-processing engine that strips corporate filler.
+3. **Voice Without Catchphrases** — Voice profiles define structural habits (sentence length distribution, paragraph patterns, conjunction usage), not signature phrases. Real writers don't have catchphrases.
+4. **Invisible Architecture** — Detection evasion is baked into generation AND post-processing. The writing passes because of HOW it's constructed at every level.
 
 ### The 5-Stage Pipeline
 
@@ -456,8 +467,8 @@ Every piece of content passes through 40 checks mapped to known detection vector
 | Block | Checks | What It Targets |
 |-------|--------|-----------------|
 | **A: Statistical** | #1-7 | Perplexity, burstiness, token distribution, log probability curvature, cross-perplexity, n-gram novelty, entropy |
-| **B: Classifier** | #8-12 | Transformer resistance, training data divergence, ensemble voting, model freshness, model attribution |
-| **C: Linguistic** | #13-18 | Stylometric fingerprint, lexical diversity, readability variance, syntactic variety, phrase blacklist, emotional authenticity |
+| **B: Classifier** | #8-12 | Conjunction starters, fragment usage, parenthetical asides, **paragraph length variance** (v2), **tricolon control** (v2) |
+| **C: Linguistic** | #13-18 | 200+ phrase blacklist, lexical diversity, readability variance, syntactic variety, **rhetorical Q+A detection** (v2), **AI opening detection** (v2) |
 | **D: Watermark** | #19-20 | Digital watermark stripping, metadata hygiene |
 | **E: Scoring** | #21-25 | Confidence score targeting, sentence-level clean, plagiarism, humanizer resistance, language authenticity |
 | **F: Bias** | #26-28 | Non-native bias exploitation, domain-specific patterns, length optimization |
@@ -564,7 +575,7 @@ The profile importer analyzes your existing writing to extract your natural styl
 
 ```yaml
 # Ghost Protocol Configuration
-version: "1.0.0"
+version: "2.0.0"
 
 # LLM Provider
 llm:
@@ -650,9 +661,40 @@ examples/outputs/
 
 ---
 
+## Journalism Research (v2.0)
+
+Ghost Protocol v2 is informed by analysis of 40+ real articles from major publications. Key findings that shaped the v2 engine:
+
+### What Real Writers Do (That AI Doesn't)
+
+| Pattern | Real Writing | AI Writing |
+|---|---|---|
+| **Paragraph length** | 1-2 sentences (news), varies wildly (features) | 3-5 sentences, suspiciously uniform |
+| **Sentence length** | 7-52 word range within one article | 15-25 words consistently |
+| **Opening** | Scene, specific fact, or news lede | "In today's rapidly evolving..." |
+| **Transitions** | Abrupt jumps, section breaks, "But." | "That said," "So what does this mean?" |
+| **Data** | 15.2%, $36.8M, 0-for-5 in 23 possessions | "significant increase," "the data shows" |
+| **Metaphors** | One and done. Never referenced again. | One metaphor threaded through entire piece |
+| **Voice** | 2-3 specific personality moments per 800 words | Personality markers in every paragraph |
+| **Endings** | Quote, specific fact, or just stops | Summary list or "What's the takeaway?" |
+| **Concessions** | Includes info that complicates the thesis | Every point reinforces the thesis |
+| **Attribution** | Named experts with titles and roles | "Experts say," "Industry leaders agree" |
+
+### Sources Analyzed
+
+- **Harvard Business Review** — Opening patterns, tension-before-resolution, one-word pivot sentences
+- **Harvard Gazette** — Source-driven voice, academic framing without jargon, colon-before-surprise
+- **ESPN (Bill Barnwell)** — Radical sentence length oscillation, evidence-first-conclusion-second, inline charting methodology
+- **CNN Business** — Wire service lede structure, appositive-heavy context loading, honest attribution of uncertainty
+- **Yahoo Finance / Motley Fool** — Setup-surprise structure, precise financial data as narrative
+- **Search Engine Land** — Action-oriented blurbs, specific product names, balanced positive/negative findings
+- **Search Engine Journal** — Functional headlines, practitioner voice, specific metrics inline
+
+---
+
 ## Research & Citations
 
-Ghost Protocol is built on research from 50+ sources. Full academic citations are in `docs/wiki/09-research-and-citations.md`.
+Ghost Protocol is built on research from 50+ sources plus the v2 journalism corpus. Full academic citations are in `docs/wiki/09-research-and-citations.md`.
 
 ### Key Academic Papers
 
