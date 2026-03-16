@@ -1,0 +1,52 @@
+{
+  "name": "writing-agent",
+  "version": "1.0.0",
+  "description": "Writing Agent — Undetectable AI Writing Tool powered by Ghost Protocol. CLI & Multi-Agent Framework.",
+  "type": "module",
+  "main": "src/ghost.js",
+  "bin": {
+    "ghost": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test tests/",
+    "benchmark": "node scripts/benchmark.js",
+    "calibrate": "node scripts/calibrate.js",
+    "lint": "eslint src/",
+    "check": "node src/cli.js check"
+  },
+  "keywords": [
+    "ai-writing",
+    "content-creation",
+    "ai-detection",
+    "writing-agent",
+    "cli-tool",
+    "writing-agent"
+  ],
+  "author": "It All Started With A Idea <hello@itallstartedwithaidea.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itallstartedwithaidea/writing-agent.git"
+  },
+  "homepage": "https://github.com/itallstartedwithaidea/writing-agent#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "compromise": "^14.14.0",
+    "docx": "^9.1.1",
+    "dotenv": "^16.4.7",
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.0",
+    "natural": "^8.0.1",
+    "ora": "^8.1.1",
+    "syllable": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}

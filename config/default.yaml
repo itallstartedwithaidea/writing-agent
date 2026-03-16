@@ -1,0 +1,46 @@
+# Ghost Protocol — Default Configuration
+# Copy to config/local.yaml and add your API keys
+
+version: "1.0.0"
+
+# LLM Provider
+llm:
+  provider: "anthropic"           # anthropic | openai
+  model: "claude-sonnet-4-20250514"
+  max_tokens: 4096
+  temperature: 0.85               # Elevated for natural variation
+
+# QA System
+qa:
+  enabled: true
+  max_revision_loops: 3
+  hard_fail_threshold: 0          # Zero tolerance for hard fails
+  soft_fail_threshold: 3          # Max 3 soft fails allowed
+
+# Detection Testing (requires API keys in local.yaml)
+detectors:
+  enabled: false                  # Set true after configuring API keys
+  require_all_pass: true
+  max_ai_probability: 30          # Global threshold
+  providers:
+    gptzero:
+      enabled: true
+      threshold: 30
+      # api_key: "set-in-local-yaml"
+    pangram:
+      enabled: true
+      threshold: 30
+      # api_key: "set-in-local-yaml"
+    originality:
+      enabled: false              # Paid API
+      threshold: 30
+      # api_key: "set-in-local-yaml"
+
+# Content Defaults
+content:
+  default_voice: "john-williams"
+  default_output: "markdown"
+
+# Phrase blacklist
+phrases:
+  zero_tolerance: true
